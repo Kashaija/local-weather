@@ -68,7 +68,7 @@ export default function WeatherNews() {
                   <img
                     src={currentArticle.image}
                     alt=""
-                    className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-lg"
+                    className="w-28 h-28 md:w-40 md:h-40 object-cover rounded-lg"
                     onError={(e) => {
                       e.target.style.display = "none"
                     }}
@@ -79,10 +79,10 @@ export default function WeatherNews() {
                 <h3 className="text-white font-semibold text-base md:text-lg leading-tight mb-2 line-clamp-2">
                   {currentArticle.title}
                 </h3>
-                <p className="text-white/60 text-sm md:text-base line-clamp-3 mb-3">
+                <p className="text-white/70 text-sm md:text-base line-clamp-3 mb-3">
                   {currentArticle.description}
                 </p>
-                <div className="flex items-center gap-3 text-xs text-white/40">
+                <div className="flex items-center gap-3 text-xs text-white/50">
                   <span>{currentArticle.source}</span>
                   <span>•</span>
                   <span>{currentArticle.timeAgo}</span>

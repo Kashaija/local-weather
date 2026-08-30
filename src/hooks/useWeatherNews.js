@@ -66,16 +66,30 @@ export function useWeatherNews() {
 
           return data.items
             .filter((item) => isWeatherRelated(item.title, item.description || ""))
-            .map((item) => ({
-              id: item.guid || item.link,
-              title: item.title,
-              description: item.description?.replace(/<[^>]*>/g, "").slice(0, 200) || "",
-              link: item.link,
-              pubDate: item.pubDate,
-              source: feed.name,
-              timeAgo: timeAgo(item.pubDate),
-              image: item.enclosure?.link || item.thumbnail || null,
-            }))
+            .map((item) => {
+              // Extract image from various RSS formats
+              let image = null
+              if (item.enclosure?.thumbnail) {
+                image = item.enclosure.thumbnail
+              } else if (item.enclosure?.link) {
+                image = item.enclosure.link.replace(/&amp;/g, "&")
+              } else if (item.thumbnail) {
+                image = item.thumbnail
+              } else if (item.media_content?.[0]?.url) {
+                image = item.media_content[0].url
+              }
+              
+              return {
+                id: item.guid || item.link,
+                title: item.title,
+                description: item.description?.replace(/<[^>]*>/g, "").slice(0, 200) || "",
+                link: item.link,
+                pubDate: item.pubDate,
+                source: feed.name,
+                timeAgo: timeAgo(item.pubDate),
+                image,
+              }
+            })
         } catch {
           return []
         }
