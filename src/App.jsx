@@ -107,7 +107,9 @@ export default function App() {
             </div>
           )}
 
-          <WeatherNews isVisible={true} />
+          <div style={{ marginTop: currentWeather ? '0' : '300px' }}>
+            <WeatherNews isVisible={true} />
+          </div>
         </div>
       </div>
     </>

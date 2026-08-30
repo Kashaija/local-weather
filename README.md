@@ -1,6 +1,6 @@
 # LocalWeather
 
-A beautiful, real-time weather application with animated backgrounds that change based on weather conditions. Search any city worldwide and get instant weather updates with a stunning visual experience.
+A beautiful, real-time weather application with animated backgrounds and live global weather news. Search any city worldwide and get instant weather updates with a stunning visual experience.
 
 ![LocalWeather Screenshot](screenshot.png)
 
@@ -10,6 +10,11 @@ A beautiful, real-time weather application with animated backgrounds that change
 - **🌡️ Real-Time Weather** - Current temperature, humidity, wind speed, pressure, and more
 - **📅 7-Day Forecast** - Daily high/low temperatures with weather conditions
 - **📊 Yesterday's Temperature** - Compare today with yesterday's actual temperatures
+- **📰 Weather News Feed** - Live global weather news from BBC, The Guardian, and Al Jazeera
+  - Auto-rotating accordion every 10 seconds
+  - Clickable articles open in new tab
+  - Image thumbnails from news sources
+  - Pauses on hover
 - **🎨 Dynamic Backgrounds** - Animated weather particles that match current conditions:
   - 🎬 **Video Backgrounds** - Real city footage from Pexels (optional, requires free API key)
   - ☀️ Clear skies with blue gradients
@@ -31,6 +36,7 @@ A beautiful, real-time weather application with animated backgrounds that change
 - **Geocoding:** [Open-Meteo Geocoding](https://open-meteo.com/) (free, no API key)
 - **Historical Data:** [Open-Meteo Forecast](https://open-meteo.com/) (free, no API key)
 - **Video Backgrounds:** [Pexels](https://www.pexels.com/api/) (optional, free API key)
+- **News Feeds:** RSS via rss2json.com (free, no API key)
 - **Linting:** OxLint
 
 ## Getting Started
@@ -45,7 +51,7 @@ A beautiful, real-time weather application with animated backgrounds that change
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/YOUR_USERNAME/localweather.git
+git clone https://github.com/Kashaija/localweather.git
 cd localweather
 ```
 
@@ -112,18 +118,21 @@ localweather/
 │   └── icons.svg
 ├── src/
 │   ├── components/
-│   │   ├── CitySelector.jsx    # Autocomplete city search
-│   │   ├── CurrentWeather.jsx  # Current weather display
-│   │   ├── Forecast.jsx        # 7-day forecast cards
-│   │   └── WeatherBackground.jsx # Animated canvas background
+│   │   ├── CitySelector.jsx      # Autocomplete city search
+│   │   ├── CurrentWeather.jsx    # Current weather display
+│   │   ├── Forecast.jsx          # 7-day forecast cards
+│   │   ├── WeatherBackground.jsx # Animated canvas + video background
+│   │   └── WeatherNews.jsx       # Live weather news feed
 │   ├── hooks/
-│   │   └── useWeather.js       # Weather API hook
+│   │   ├── useWeather.js         # Weather API hook
+│   │   ├── usePexelsVideo.js     # Pexels video hook
+│   │   └── useWeatherNews.js     # RSS news feed hook
 │   ├── utils/
-│   │   └── cities.js           # Fallback cities list
-│   ├── App.jsx                 # Main application
-│   ├── main.jsx                # Entry point
-│   └── index.css               # Tailwind imports
-├── .env.example                # Environment variables template
+│   │   └── cities.js             # Fallback cities list
+│   ├── App.jsx                   # Main application
+│   ├── main.jsx                  # Entry point
+│   └── index.css                 # Tailwind imports
+├── .env.example                  # Environment variables template
 ├── package.json
 ├── vite.config.js
 └── README.md
@@ -138,8 +147,18 @@ This application uses the following APIs:
 | OpenWeatherMap | Current weather + forecast | 60 calls/min (free) | Free tier available |
 | Open-Meteo Geocoding | City search | 10,000/day | Free |
 | Open-Meteo Forecast | Yesterday's temperature | 10,000/day | Free |
+| Pexels | Video backgrounds | 200 req/hour | Free |
+| RSS2JSON | News feed conversion | 10 req/day | Free |
 
 ## Features in Detail
+
+### Weather News Feed
+The app displays live weather news from multiple global sources:
+- **BBC Science & Environment** - UK and global weather coverage
+- **The Guardian Climate** - Climate crisis and weather events
+- **Al Jazeera** - International weather news
+
+Articles are filtered for weather-related content and auto-rotate every 10 seconds. Hover to pause rotation. Click any article to open the full story in a new tab.
 
 ### Weather Backgrounds
 The app uses HTML5 Canvas to render animated weather particles:
@@ -148,6 +167,8 @@ The app uses HTML5 Canvas to render animated weather particles:
 - Stars: Twinkling points at night
 - Thunder: Random lightning flashes
 - Fog: Horizontal elliptical layers
+
+With a Pexels API key, real city footage is displayed as a looping video background.
 
 ### Auto Dark Mode
 The app calculates sunrise/sunset times from the OpenWeather API response and automatically switches to a dark theme when it's nighttime at the selected location.
@@ -173,6 +194,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - [OpenWeatherMap](https://openweathermap.org/) for weather data
 - [Open-Meteo](https://open-meteo.com/) for geocoding and historical data
+- [Pexels](https://www.pexels.com/) for free stock videos
+- [BBC](https://www.bbc.co.uk/), [The Guardian](https://www.theguardian.com/), [Al Jazeera](https://www.aljazeera.com/) for news feeds
 - [Vite](https://vitejs.dev/) for the build tool
 - [React](https://react.dev/) for the UI framework
 - [Tailwind CSS](https://tailwindcss.com/) for styling
