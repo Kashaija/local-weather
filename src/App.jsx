@@ -3,6 +3,7 @@ import CitySelector from "./components/CitySelector"
 import CurrentWeather from "./components/CurrentWeather"
 import Forecast from "./components/Forecast"
 import WeatherBackground from "./components/WeatherBackground"
+import WeatherNews from "./components/WeatherNews"
 import { useWeather } from "./hooks/useWeather"
 
 function isNightTime(weatherData) {
@@ -107,6 +108,8 @@ export default function App() {
           )}
         </div>
       </div>
+
+      <WeatherNews />
     </>
   )
 }
