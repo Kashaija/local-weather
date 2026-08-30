@@ -1,8 +1,8 @@
-# LocalWeather
+# Local Weather
 
 A beautiful, real-time weather application with animated backgrounds and live global weather news. Search any city worldwide and get instant weather updates with a stunning visual experience.
 
-![LocalWeather Screenshot](screenshot.png)
+![Local Weather Screenshot](screenshot.png)
 
 ## Features
 

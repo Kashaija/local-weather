@@ -47,7 +47,7 @@ export default function App() {
             <h1 className={`text-4xl md:text-5xl font-bold mb-2 transition-colors duration-500 ${
               isDark ? "text-white" : "text-white drop-shadow-lg"
             }`}>
-              LocalWeather
+              Local Weather
             </h1>
             <p className={`text-lg transition-colors duration-500 ${
               isDark ? "text-slate-300" : "text-white/90 drop-shadow"
