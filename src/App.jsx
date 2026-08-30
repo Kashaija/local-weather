@@ -38,7 +38,7 @@ export default function App() {
 
   return (
     <>
-      <WeatherBackground weather={currentWeather?.weather?.[0]} isNight={isDark} />
+      <WeatherBackground weather={currentWeather?.weather?.[0]} isNight={isDark} cityName={selectedCity?.name} />
       
       <div className="relative min-h-screen">
         <div className="max-w-5xl mx-auto px-4 py-10">

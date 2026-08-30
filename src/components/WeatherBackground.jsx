@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react"
+import { useRef, useEffect } from "react"
 import { usePexelsVideo } from "../hooks/usePexelsVideo"
 
 const PARTICLE_COUNT = 50
@@ -121,16 +121,9 @@ function updateParticle(p, width, height) {
 export default function WeatherBackground({ weather, isNight, cityName }) {
   const canvasRef = useRef(null)
   const particlesRef = useRef([])
-  const [showVideo, setShowVideo] = useState(false)
   
   const weatherCondition = weather?.main?.toLowerCase() || "clear"
   const { video } = usePexelsVideo(cityName, weatherCondition)
-
-  useEffect(() => {
-    if (video) {
-      setShowVideo(true)
-    }
-  }, [video])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -183,14 +176,13 @@ export default function WeatherBackground({ weather, isNight, cityName }) {
       />
 
       {/* Pexels video - shown when available */}
-      {showVideo && video && (
+      {video && (
         <video
           autoPlay
           loop
           muted
           playsInline
-          onCanPlay={() => setShowVideo(true)}
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+          className="absolute inset-0 w-full h-full object-cover"
           style={{ opacity: 0.4 }}
           poster={video.thumbnail}
         >
@@ -202,7 +194,7 @@ export default function WeatherBackground({ weather, isNight, cityName }) {
       <canvas
         ref={canvasRef}
         className="absolute inset-0"
-        style={{ opacity: showVideo && video ? 0.3 : 0.6 }}
+        style={{ opacity: video ? 0.3 : 0.6 }}
       />
 
       {/* Subtle overlay for better text readability */}
