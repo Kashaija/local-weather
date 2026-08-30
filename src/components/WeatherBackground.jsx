@@ -1,4 +1,5 @@
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
+import { usePexelsVideo } from "../hooks/usePexelsVideo"
 
 const PARTICLE_COUNT = 50
 
@@ -117,9 +118,19 @@ function updateParticle(p, width, height) {
   if (p.x > width + 10) p.x = -10
 }
 
-export default function WeatherBackground({ weather, isNight }) {
+export default function WeatherBackground({ weather, isNight, cityName }) {
   const canvasRef = useRef(null)
   const particlesRef = useRef([])
+  const [showVideo, setShowVideo] = useState(false)
+  
+  const weatherCondition = weather?.main?.toLowerCase() || "clear"
+  const { video } = usePexelsVideo(cityName, weatherCondition)
+
+  useEffect(() => {
+    if (video) {
+      setShowVideo(true)
+    }
+  }, [video])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -164,15 +175,38 @@ export default function WeatherBackground({ weather, isNight }) {
   const gradient = getGradient(weather, isNight)
 
   return (
-    <div
-      className="fixed inset-0 -z-10 transition-all duration-1000"
-      style={{ background: gradient }}
-    >
+    <div className="fixed inset-0 -z-10 transition-all duration-1000 overflow-hidden">
+      {/* Gradient background - always present */}
+      <div
+        className="absolute inset-0 transition-all duration-1000"
+        style={{ background: gradient }}
+      />
+
+      {/* Pexels video - shown when available */}
+      {showVideo && video && (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          onCanPlay={() => setShowVideo(true)}
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+          style={{ opacity: 0.4 }}
+          poster={video.thumbnail}
+        >
+          <source src={video.url} type="video/mp4" />
+        </video>
+      )}
+
+      {/* Canvas particles - always present for additional effect */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0"
-        style={{ opacity: 0.6 }}
+        style={{ opacity: showVideo && video ? 0.3 : 0.6 }}
       />
+
+      {/* Subtle overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/20" />
     </div>
   )
 }

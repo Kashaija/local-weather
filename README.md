@@ -11,6 +11,7 @@ A beautiful, real-time weather application with animated backgrounds that change
 - **📅 7-Day Forecast** - Daily high/low temperatures with weather conditions
 - **📊 Yesterday's Temperature** - Compare today with yesterday's actual temperatures
 - **🎨 Dynamic Backgrounds** - Animated weather particles that match current conditions:
+  - 🎬 **Video Backgrounds** - Real city footage from Pexels (optional, requires free API key)
   - ☀️ Clear skies with blue gradients
   - 🌙 Night mode with twinkling stars
   - 🌧️ Rain with falling droplets
@@ -29,6 +30,7 @@ A beautiful, real-time weather application with animated backgrounds that change
 - **Weather API:** [OpenWeatherMap](https://openweathermap.org/) (requires free API key)
 - **Geocoding:** [Open-Meteo Geocoding](https://open-meteo.com/) (free, no API key)
 - **Historical Data:** [Open-Meteo Forecast](https://open-meteo.com/) (free, no API key)
+- **Video Backgrounds:** [Pexels](https://www.pexels.com/api/) (optional, free API key)
 - **Linting:** OxLint
 
 ## Getting Started
@@ -52,9 +54,12 @@ cd localweather
 npm install
 ```
 
-3. Create a `.env` file and add your API key:
+3. Create a `.env` file and add your API keys:
 ```env
-VITE_OPENWEATHER_API_KEY=your_api_key_here
+VITE_OPENWEATHER_API_KEY=your_openweather_api_key_here
+
+# Optional: For video backgrounds (free)
+VITE_PEXELS_API_KEY=your_pexels_api_key_here
 ```
 
 4. Start the development server:
@@ -72,6 +77,15 @@ npm run dev
 4. Copy your API key and add it to your `.env` file
 
 **Note:** New API keys may take 1-2 hours to activate.
+
+### Getting a Pexels API Key (Optional - for video backgrounds)
+
+1. Go to [Pexels API](https://www.pexels.com/api/)
+2. Sign up for a free account
+3. Click "Your API Key" to get your key
+4. Add it to your `.env` file
+
+**Note:** Without a Pexels key, the app will use animated canvas particles instead of video backgrounds.
 
 ## Available Scripts
 
