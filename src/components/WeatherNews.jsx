@@ -31,7 +31,7 @@ export default function WeatherNews() {
       onMouseLeave={() => setIsPaused(false)}
     >
       <div className="max-w-5xl mx-auto">
-        <div className="bg-black/40 backdrop-blur-md border border-white/20 rounded-xl overflow-hidden shadow-2xl">
+        <div className="bg-black/50 backdrop-blur-md border border-white/20 rounded-xl overflow-hidden shadow-2xl">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-2 bg-white/10 border-b border-white/10">
             <div className="flex items-center gap-2">
@@ -62,12 +62,24 @@ export default function WeatherNews() {
             rel="noopener noreferrer"
             className="block px-4 py-3 hover:bg-white/5 transition-colors duration-200"
           >
-            <div className="flex items-start gap-3">
+            <div className="flex items-start gap-4">
+              {currentArticle.image && (
+                <div className="flex-shrink-0">
+                  <img
+                    src={currentArticle.image}
+                    alt=""
+                    className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-lg"
+                    onError={(e) => {
+                      e.target.style.display = "none"
+                    }}
+                  />
+                </div>
+              )}
               <div className="flex-1 min-w-0">
-                <h3 className="text-white font-semibold text-sm md:text-base leading-tight mb-1 line-clamp-2">
+                <h3 className="text-white font-semibold text-base md:text-lg leading-tight mb-2 line-clamp-2">
                   {currentArticle.title}
                 </h3>
-                <p className="text-white/60 text-xs md:text-sm line-clamp-2 mb-2">
+                <p className="text-white/60 text-sm md:text-base line-clamp-3 mb-3">
                   {currentArticle.description}
                 </p>
                 <div className="flex items-center gap-3 text-xs text-white/40">
@@ -78,7 +90,7 @@ export default function WeatherNews() {
               </div>
               <div className="flex-shrink-0 mt-1">
                 <svg
-                  className="w-4 h-4 text-white/40"
+                  className="w-5 h-5 text-white/40"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

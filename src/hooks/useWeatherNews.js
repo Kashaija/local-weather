@@ -69,11 +69,12 @@ export function useWeatherNews() {
             .map((item) => ({
               id: item.guid || item.link,
               title: item.title,
-              description: item.description?.replace(/<[^>]*>/g, "").slice(0, 150) || "",
+              description: item.description?.replace(/<[^>]*>/g, "").slice(0, 200) || "",
               link: item.link,
               pubDate: item.pubDate,
               source: feed.name,
               timeAgo: timeAgo(item.pubDate),
+              image: item.enclosure?.link || item.thumbnail || null,
             }))
         } catch {
           return []
