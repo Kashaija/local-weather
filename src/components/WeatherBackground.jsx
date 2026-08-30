@@ -178,6 +178,7 @@ export default function WeatherBackground({ weather, isNight, cityName }) {
       {/* Pexels video - shown when available */}
       {video && (
         <video
+          key={video.url}
           autoPlay
           loop
           muted
