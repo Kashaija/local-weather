@@ -39,10 +39,14 @@ export function usePexelsVideo(cityName, weatherCondition) {
                 const randomIndex = Math.floor(Math.random() * Math.min(data.videos.length, 3))
                 const selectedVideo = data.videos[randomIndex]
                 
-                // Get the best quality video file (prefer HD but not too large)
-                const videoFile = selectedVideo.video_files?.find(
-                  (f) => f.quality === "hd" && f.width >= 1280
-                ) || selectedVideo.video_files?.[0]
+                // Get a good quality video file (prefer landscape HD)
+                const sortedFiles = [...(selectedVideo.video_files || [])].sort((a, b) => {
+                  // Prefer landscape videos with decent resolution
+                  const aScore = (a.width >= 1280 ? 1000 : 0) + a.width
+                  const bScore = (b.width >= 1280 ? 1000 : 0) + b.width
+                  return bScore - aScore
+                })
+                const videoFile = sortedFiles[0]
 
                 if (videoFile) {
                   setVideo({
