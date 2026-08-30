@@ -97,6 +97,7 @@ export default function App() {
             <div className="space-y-6">
               <CurrentWeather data={currentWeather} city={selectedCity} units={units} isDark={isDark} />
               <Forecast data={forecast} yesterday={yesterday} units={units} isDark={isDark} />
+              <WeatherNews isVisible={true} />
             </div>
           )}
 
@@ -108,8 +109,6 @@ export default function App() {
           )}
         </div>
       </div>
-
-      <WeatherNews />
     </>
   )
 }

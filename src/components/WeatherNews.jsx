@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react"
 import { useWeatherNews } from "../hooks/useWeatherNews"
 
-export default function WeatherNews() {
+export default function WeatherNews({ isVisible }) {
   const { articles, loading } = useWeatherNews()
   const [expandedIndex, setExpandedIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
@@ -18,7 +18,7 @@ export default function WeatherNews() {
     return () => clearInterval(interval)
   }, [isPaused, articles.length, rotateArticle])
 
-  if (loading || articles.length === 0) {
+  if (loading || articles.length === 0 || !isVisible) {
     return null
   }
 
@@ -26,12 +26,11 @@ export default function WeatherNews() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-40 px-4 pb-4"
+      className="mt-8"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="max-w-5xl mx-auto">
-        <div className="bg-black/50 backdrop-blur-md border border-white/20 rounded-xl overflow-hidden shadow-2xl">
+      <div className="bg-black/40 backdrop-blur-md border border-white/20 rounded-xl overflow-hidden shadow-2xl">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-2 bg-white/10 border-b border-white/10">
             <div className="flex items-center gap-2">
@@ -117,7 +116,6 @@ export default function WeatherNews() {
             />
           </div>
         </div>
-      </div>
 
       <style>{`
         @keyframes progress {
